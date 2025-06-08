@@ -1,46 +1,59 @@
-const studentData = {
-  Ajey: ["Raina", "Rehaan", "Aydin", "Zidan", "Nozer", "KumarKirpalani"],
-  Sonam: ["NishantNanw", "Rianna", "Kimaya", "Samyra", "Kiyaan", "Raunaq"],
-  Rohan: ["Rashnae", "Eira"]
-};
+// Reference to Firestore (already set in index.html)
+const db = firebase.firestore();
 
 const teacherSelect = document.getElementById("teacher");
 const studentSelect = document.getElementById("student");
 const rankSelect = document.getElementById("rank");
-const confirmation = document.getElementById("confirmation");
-const tableBody = document.querySelector("#entriesTable tbody");
+const submitBtn = document.getElementById("submit");
+const messageDiv = document.getElementById("message");
+const dataTable = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
 
-teacherSelect.addEventListener("change", () => {
-  const selectedTeacher = teacherSelect.value;
-  studentSelect.innerHTML = "<option value=''>--Select--</option>";
+submitBtn.addEventListener("click", async () => {
+    const teacher = teacherSelect.value;
+    const student = studentSelect.value;
+    const rank = rankSelect.value;
+    const timestamp = new Date();
 
-  if (studentData[selectedTeacher]) {
-    studentData[selectedTeacher].forEach((student) => {
-      const opt = document.createElement("option");
-      opt.value = student;
-      opt.textContent = student;
-      studentSelect.appendChild(opt);
-    });
-  }
+    if (!teacher || !student || !rank) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    try {
+        await db.collection("rankEntries").add({
+            teacher,
+            student,
+            rank,
+            timestamp
+        });
+
+        messageDiv.innerText = "✅ Entry recorded!";
+        messageDiv.style.color = "green";
+
+        loadData(); // Refresh table
+    } catch (error) {
+        console.error("Error adding document: ", error);
+        messageDiv.innerText = "❌ Error saving data.";
+        messageDiv.style.color = "red";
+    }
 });
 
-function submitRank() {
-  const teacher = teacherSelect.value;
-  const student = studentSelect.value;
-  const rank = rankSelect.value;
+// Load saved data from Firestore
+async function loadData() {
+    dataTable.innerHTML = ""; // Clear table
 
-  if (!teacher || !student || !rank) {
-    alert("Please select all fields");
-    return;
-  }
-
-  const row = document.createElement("tr");
-  row.innerHTML = `<td>${teacher}</td><td>${student}</td><td>${rank}</td>`;
-  tableBody.appendChild(row);
-
-  confirmation.textContent = `✅ Entry saved for ${student}`;
-  confirmation.classList.remove("hidden");
-
-  // Reset rank dropdown, keep teacher and student for faster entry
-  rankSelect.value = "";
+    const snapshot = await db.collection("rankEntries").orderBy("timestamp", "desc").get();
+    snapshot.forEach(doc => {
+        const data = doc.data();
+        const row = dataTable.insertRow();
+        row.insertCell(0).innerText = data.teacher;
+        row.insertCell(1).innerText = data.student;
+        row.insertCell(2).innerText = data.rank;
+        row.insertCell(3).innerText = new Date(data.timestamp.toDate()).toLocaleString();
+    });
 }
+
+// Load data on app start
+window.onload = () => {
+    loadData();
+};

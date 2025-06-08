@@ -1,0 +1,108 @@
+/* style.css */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f4f8;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 480px;
+  margin: auto;
+  background: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+select, button {
+  width: 100%;
+  padding: 12px 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1.8px solid #3498db;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: 0.3s ease;
+}
+
+select:focus, button:focus {
+  outline: none;
+  border-color: #2980b9;
+  box-shadow: 0 0 5px #2980b9;
+}
+
+button {
+  background: #3498db;
+  color: white;
+  font-weight: 700;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+#confirmation {
+  margin-top: 15px;
+  color: green;
+  font-weight: 600;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background: #3498db;
+  color: white;
+}
+
+@media (max-width: 500px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 15px 20px;
+  }
+
+  select, button {
+    font-size: 18px;
+    padding: 14px 12px;
+  }
+
+  th, td {
+    font-size: 14px;
+  }
+}

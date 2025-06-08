@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Music Student Ranking</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎵 Weekly Student Ranking</h1>
+
+    <label for="teacher">Select Teacher:</label>
+    <select id="teacher">
+      <option value="">--Select--</option>
+      <option value="Ajey">Ajey</option>
+      <option value="Sonam">Sonam</option>
+      <option value="Rohan">Rohan</option>
+    </select>
+
+    <label for="student">Select Student:</label>
+    <select id="student">
+      <option value="">--Select Teacher First--</option>
+    </select>
+
+    <label for="rank">Select Rank:</label>
+    <select id="rank">
+      <option value="">--Select--</option>
+      <option value="L1">L1</option>
+      <option value="L2">L2</option>
+      <option value="L3">L3</option>
+      <option value="L4">L4</option>
+      <option value="L5">L5</option>
+      <option value="Absent">Absent</option>
+      <option value="Teacher Absent">Teacher Absent</option>
+      <option value="No Show">No Show</option>
+    </select>
+
+    <button onclick="submitRank()">Submit</button>
+
+    <div id="confirmation" class="hidden"></div>
+
+    <h2>📋 Submitted Entries</h2>
+    <table id="entriesTable">
+      <thead>
+        <tr>
+          <th>Teacher</th>
+          <th>Student</th>
+          <th>Rank</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

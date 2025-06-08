@@ -8,6 +8,28 @@ const submitBtn = document.getElementById("submit");
 const messageDiv = document.getElementById("message");
 const dataTable = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
 
+const teacherStudents = {
+    Ajey: ["Raina", "Rehaan", "Aydin", "Zidan", "Nozer", "KumarKirpalani"],
+    Sonam: ["NishantNanw", "Rianna", "Kimaya", "Samyra", "Kiyaan", "Raunaq"],
+    Rohan: ["Rashnae", "Eira"]
+};
+
+// Update student dropdown when a teacher is selected
+teacherSelect.addEventListener("change", () => {
+    const selectedTeacher = teacherSelect.value;
+    studentSelect.innerHTML = '<option value="">Select Student</option>'; // Reset
+
+    if (teacherStudents[selectedTeacher]) {
+        teacherStudents[selectedTeacher].forEach(student => {
+            const option = document.createElement("option");
+            option.value = student;
+            option.innerText = student;
+            studentSelect.appendChild(option);
+        });
+    }
+});
+
+
 submitBtn.addEventListener("click", async () => {
     const teacher = teacherSelect.value;
     const student = studentSelect.value;
